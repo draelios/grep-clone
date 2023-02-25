@@ -16,7 +16,11 @@ impl<'a> Search<'a> {
         if args.len() < 3 {
             return Err("Not enough arguments!")
         }
-        let ignore_case = env::var("IGNORE_CASE").is_ok();
+
+        let ignore_case = 
+            if args.len()==4 && &args[3] == "true"{true} 
+            else {env::var("IGNORE_CASE").is_ok()};
+        
         Ok(Search::new(&args[1], &args[2], ignore_case))
     }
 }
